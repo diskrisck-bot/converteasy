@@ -392,74 +392,105 @@
     }
 
     /* ─── Social Proof ─── */
-    .social-proof { background: #f7f9fc; }
-    .social-proof-header { text-align: center; margin-bottom: 64px; }
-    .testimonials-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    .social-proof {
+      background: linear-gradient(180deg, #f7f9fc 0%, #ffffff 100%);
+      padding: 96px 0;
     }
-    .testimonial-card {
+    .sp-header { text-align: center; margin-bottom: 60px; }
+
+    /* Entry animation keyframes */
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .t-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Each card uses CSS animation — no JS needed */
+    .t-card {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 28px 26px 24px;
-      box-shadow: var(--shadow-sm);
-      display: flex; flex-direction: column; gap: 16px;
+      box-shadow: rgba(23,23,23,0.07) 0 4px 16px;
+      display: flex; flex-direction: column; gap: 18px;
       position: relative; overflow: hidden;
-      transition: box-shadow 280ms var(--ease-out), border-color 280ms, transform 280ms var(--ease-out);
+      transition: box-shadow 280ms var(--ease-out), border-color 280ms, transform 260ms var(--ease-out);
     }
-    .testimonial-card::before {
+    .t-card-anim-1 { animation: cardIn 0.55s var(--ease-out) 0.05s both; }
+    .t-card-anim-2 { animation: cardIn 0.55s var(--ease-out) 0.18s both; }
+    .t-card-anim-3 { animation: cardIn 0.55s var(--ease-out) 0.31s both; }
+
+    /* Decorative quote mark */
+    .t-card::after {
       content: '\201C';
-      position: absolute; top: -8px; right: 20px;
-      font-size: 96px; line-height: 1; color: var(--purple-pale);
-      font-family: Georgia, serif; pointer-events: none;
+      position: absolute; top: -4px; right: 18px;
+      font-size: 88px; line-height: 1;
+      color: rgba(83,58,253,0.07);
+      font-family: Georgia, serif;
+      pointer-events: none; user-select: none;
     }
-    .testimonial-card:hover {
-      box-shadow: var(--shadow-std);
+    .t-card:hover {
+      box-shadow: rgba(50,50,93,0.18) 0 12px 40px -12px, rgba(0,0,0,0.08) 0 8px 20px -8px;
       border-color: var(--border-purple);
-      transform: translateY(-4px);
+      transform: translateY(-5px);
     }
-    .testimonial-top {
-      display: flex; align-items: center; gap: 12px;
+
+    .t-card-top {
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .t-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 17px; font-weight: 700; color: var(--white);
-      flex-shrink: 0; letter-spacing: 0;
+    .t-stars { color: #f59e0b; font-size: 15px; letter-spacing: 2px; }
+    .t-verified {
+      font-size: 11px; font-weight: 600; color: var(--green-text);
+      background: rgba(21,190,83,0.1); border: 1px solid rgba(21,190,83,0.25);
+      padding: 3px 8px; border-radius: 4px; letter-spacing: 0.3px;
     }
-    .t-avatar-1 { background: linear-gradient(135deg, #533afd, #7b61ff); }
-    .t-avatar-2 { background: linear-gradient(135deg, #ea2261, #f96bee); }
-    .t-avatar-3 { background: linear-gradient(135deg, #0ea5e9, #06b6d4); }
-    .t-meta { flex: 1; }
-    .t-name { font-size: 14px; font-weight: 700; color: var(--navy); }
-    .t-role { font-size: 12px; color: var(--slate); margin-top: 2px; }
-    .t-stars { color: #f59e0b; font-size: 14px; letter-spacing: 1px; flex-shrink: 0; }
-    .t-headline {
+
+    .t-quote {
       font-size: 15px; font-weight: 700; color: var(--navy);
-      line-height: 1.45; border: none; padding: 0; margin: 0;
-      font-style: normal;
+      line-height: 1.5; font-style: normal;
       border-left: 3px solid var(--purple);
-      padding-left: 14px;
+      padding-left: 14px; margin: 0;
     }
+
     .t-body {
-      font-size: 14px; color: var(--slate); line-height: 1.7;
-      flex: 1;
+      font-size: 14px; color: var(--slate); line-height: 1.75; flex: 1;
     }
-    .t-body strong { color: var(--navy); }
+    .t-body strong { color: var(--navy); font-weight: 600; }
     .t-body em { font-style: italic; color: var(--label); }
-    .t-objection-killed {
+
+    .t-author {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .t-avatar-circle {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: var(--white); flex-shrink: 0;
+    }
+    .t-av-purple { background: linear-gradient(135deg, #533afd, #7b61ff); }
+    .t-av-ruby   { background: linear-gradient(135deg, #ea2261, #f96bee); }
+    .t-av-teal   { background: linear-gradient(135deg, #0ea5e9, #06b6d4); }
+    .t-author-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .t-author-role { font-size: 12px; color: var(--slate); margin-top: 2px; }
+
+    .t-objection {
       display: flex; align-items: flex-start; gap: 8px;
       background: rgba(83,58,253,0.05);
-      border: 1px solid rgba(83,58,253,0.15);
-      border-radius: 6px; padding: 10px 12px;
+      border: 1px solid rgba(83,58,253,0.14);
+      border-radius: 8px; padding: 10px 12px;
       font-size: 12px; color: var(--label); line-height: 1.5;
-      margin-top: auto;
     }
-    .t-objection-killed strong { color: var(--purple); }
-    .t-objection-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .t-objection strong { color: var(--purple); }
 
     @media (max-width: 900px) {
-      .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+      .t-grid { grid-template-columns: 1fr; gap: 20px; }
     }
 
     /* ─── Value Stack ─── */
@@ -911,87 +942,91 @@
   ════════════════════════════════════════════ -->
   <section class="social-proof" aria-labelledby="social-proof-heading">
     <div class="container">
-      <div class="social-proof-header">
-        <div class="tag section-tag reveal">Real Results</div>
-        <h2 class="section-headline reveal reveal-delay-1" id="social-proof-heading">
+
+      <div class="sp-header">
+        <div class="tag" style="margin-bottom:16px;">Real Results · Objection Killer</div>
+        <h2 class="section-headline" id="social-proof-heading" style="text-align:center;">
           See What Happens When You Stop Fighting<br />Technology and Focus Only on Profiting
         </h2>
-        <p class="section-sub centered reveal reveal-delay-2">
-          These are real people who were exactly where you are right now — and made the switch.
+        <p class="section-sub" style="text-align:center;max-width:580px;margin:12px auto 0;">
+          Real people. Real results. Exactly where you are right now — before they made the switch.
         </p>
       </div>
 
-      <div class="testimonials-grid">
+      <div class="t-grid">
 
-        <!-- Testimonial 1 -->
-        <article class="testimonial-card reveal" aria-label="Testimonial from Mariana C.">
-          <div class="testimonial-top">
-            <div class="t-avatar t-avatar-1" aria-hidden="true">M</div>
-            <div class="t-meta">
-              <div class="t-name">Mariana C.</div>
-              <div class="t-role">Digital Marketing Beginner</div>
-            </div>
-            <div class="t-stars" aria-label="5 out of 5 stars">
-              <span aria-hidden="true">★★★★★</span>
-            </div>
+        <!-- ── Card 1 ── -->
+        <article class="t-card t-card-anim-1" aria-label="Testimonial from Mariana C.">
+          <div class="t-card-top">
+            <div class="t-stars" aria-label="5 stars">★★★★★</div>
+            <div class="t-verified">✔ Verified user</div>
           </div>
-          <blockquote class="t-headline">
-            "I spent 3 months trying to set up WordPress and gave up. With ConvertEasy, I launched on the same day."
+          <blockquote class="t-quote">
+            "I spent 3 months trying to set up WordPress and gave up.<br />With ConvertEasy, I launched on the same day."
           </blockquote>
           <p class="t-body">
-            I'm not a developer. I tried signing up for expensive platforms, but I couldn't get the quiz to connect with my page and my video. It was a complete nightmare. I canceled everything, grabbed the ConvertEasy free trial and used a ready-made template. In less than 2 hours my weight loss funnel was live and getting clicks. <strong>I've already made my first 5 sales!</strong>
+            I'm not a developer. I tried expensive platforms but couldn't get the quiz to connect with my page and video — it was a nightmare. I canceled everything, grabbed the ConvertEasy free trial and used a ready-made template. In less than 2 hours my weight loss funnel was live and getting clicks. <strong>I've already made my first 5 sales!</strong>
           </p>
-          <div class="t-objection-killed">
-            <span class="t-objection-icon" aria-hidden="true">🛑</span>
-            <span><strong>Objection killed:</strong> "It's too complicated / I'm not technical"</span>
+          <div class="t-author">
+            <div class="t-avatar-circle t-av-purple">M</div>
+            <div>
+              <div class="t-author-name">Mariana C.</div>
+              <div class="t-author-role">Digital Marketing Beginner</div>
+            </div>
+          </div>
+          <div class="t-objection">
+            <span aria-hidden="true">🛑</span>
+            <span><strong>Objection crushed:</strong> "It's too hard / I'm not technical"</span>
           </div>
         </article>
 
-        <!-- Testimonial 2 -->
-        <article class="testimonial-card reveal reveal-delay-1" aria-label="Testimonial from Lucas R.">
-          <div class="testimonial-top">
-            <div class="t-avatar t-avatar-2" aria-hidden="true">L</div>
-            <div class="t-meta">
-              <div class="t-name">Lucas R.</div>
-              <div class="t-role">Former Prisoner of Expensive Subscriptions</div>
-            </div>
-            <div class="t-stars" aria-label="5 out of 5 stars">
-              <span aria-hidden="true">★★★★★</span>
-            </div>
+        <!-- ── Card 2 ── -->
+        <article class="t-card t-card-anim-2" aria-label="Testimonial from Lucas R.">
+          <div class="t-card-top">
+            <div class="t-stars" aria-label="5 stars">★★★★★</div>
+            <div class="t-verified">✔ Verified user</div>
           </div>
-          <blockquote class="t-headline">
-            "I was paying $130/month to sell nothing. Now I pay the price of a coffee."
+          <blockquote class="t-quote">
+            "I was paying $130/month to sell nothing.<br />Now I pay the price of a coffee."
           </blockquote>
           <p class="t-body">
-            The worst part of starting out is the bills arriving before the profit. I was paying for ClickFunnels AND Typeform and going into the red every month. I migrated my entire operation to ConvertEasy. Besides saving an insane amount per year, their AI created my Quiz questions and <strong>my email capture rate absolutely skyrocketed.</strong> Ridiculously easy.
+            The worst part of starting out is the bills arriving before the profit. I was paying for ClickFunnels AND Typeform and going into the red. I migrated my entire operation to ConvertEasy. Besides saving a fortune, their AI built my Quiz questions and <strong>my email capture rate absolutely skyrocketed.</strong> Ridiculously easy.
           </p>
-          <div class="t-objection-killed">
-            <span class="t-objection-icon" aria-hidden="true">🛑</span>
-            <span><strong>Objection killed:</strong> "These tools are too expensive / It sounds too good to be true"</span>
+          <div class="t-author">
+            <div class="t-avatar-circle t-av-ruby">L</div>
+            <div>
+              <div class="t-author-name">Lucas R.</div>
+              <div class="t-author-role">Former Prisoner of Expensive Subscriptions</div>
+            </div>
+          </div>
+          <div class="t-objection">
+            <span aria-hidden="true">🛑</span>
+            <span><strong>Objection crushed:</strong> "Too expensive / Sounds too good to be true"</span>
           </div>
         </article>
 
-        <!-- Testimonial 3 -->
-        <article class="testimonial-card reveal reveal-delay-2" aria-label="Testimonial from Thiago M.">
-          <div class="testimonial-top">
-            <div class="t-avatar t-avatar-3" aria-hidden="true">T</div>
-            <div class="t-meta">
-              <div class="t-name">Thiago M.</div>
-              <div class="t-role">Info-product Creator</div>
-            </div>
-            <div class="t-stars" aria-label="5 out of 5 stars">
-              <span aria-hidden="true">★★★★★</span>
-            </div>
+        <!-- ── Card 3 ── -->
+        <article class="t-card t-card-anim-3" aria-label="Testimonial from Thiago M.">
+          <div class="t-card-top">
+            <div class="t-stars" aria-label="5 stars">★★★★★</div>
+            <div class="t-verified">✔ Verified user</div>
           </div>
-          <blockquote class="t-headline">
-            "Their AI told me exactly where I was losing money — and fixed it in one click."
+          <blockquote class="t-quote">
+            "Their AI told me exactly where I was losing money — and I fixed it in one click."
           </blockquote>
           <p class="t-body">
-            My VSL wasn't converting and I had no idea why. I can't read complex charts. The ConvertEasy dashboard just sent me a plain-language alert: <em>"Thiago, 65% of your leads are dropping off at the 2-minute mark — we suggest moving the buy button earlier."</em> I dragged the button, changed the delay with 1 click and <strong>my ROI tripled the next day.</strong> Absolutely surreal.
+            My VSL wasn't converting and I had no idea why. I can't read complex charts. The ConvertEasy dashboard simply sent me a plain-English alert: <em>"Thiago, 65% of your leads drop off at the 2-minute mark — move the buy button earlier."</em> I dragged the button, changed the delay with 1 click, and <strong>my ROI tripled the next day.</strong> Absolutely surreal.
           </p>
-          <div class="t-objection-killed">
-            <span class="t-objection-icon" aria-hidden="true">🛑</span>
-            <span><strong>Objection killed:</strong> "I don't know how to read metrics / I don't know how to optimize"</span>
+          <div class="t-author">
+            <div class="t-avatar-circle t-av-teal">T</div>
+            <div>
+              <div class="t-author-name">Thiago M.</div>
+              <div class="t-author-role">Info-product Creator</div>
+            </div>
+          </div>
+          <div class="t-objection">
+            <span aria-hidden="true">🛑</span>
+            <span><strong>Objection crushed:</strong> "I don't know how to read metrics / optimize"</span>
           </div>
         </article>
 
