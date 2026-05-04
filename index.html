@@ -1,12 +1,1329 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConvertEasy</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConvertEasy — Your First Sales Funnel Live in 5 Minutes</title>
+  <meta name="description" content="Create High-Converting Landing Pages, Interactive Quizzes, and VSLs all in one place. No coding required. Only $5/month after 30 days free." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple:       #533afd;
+      --purple-hover: #4434d4;
+      --purple-deep:  #2e2b8c;
+      --purple-light: #b9b9f9;
+      --purple-pale:  #f0effe;
+      --navy:         #061b31;
+      --dark-navy:    #0d253d;
+      --brand-dark:   #1c1e54;
+      --slate:        #64748d;
+      --label:        #273951;
+      --white:        #ffffff;
+      --border:       #e5edf5;
+      --border-purple:#b9b9f9;
+      --green:        #15be53;
+      --green-text:   #108c3d;
+      --ruby:         #ea2261;
+      --magenta:      #f96bee;
+      --shadow-std:   rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.10) 0px 18px 36px -18px;
+      --shadow-amb:   rgba(23,23,23,0.08) 0px 15px 35px 0px;
+      --shadow-sm:    rgba(23,23,23,0.06) 0px 3px 6px;
+      --font: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in:  cubic-bezier(0.64, 0, 0.78, 0);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--slate);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--purple); text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ─── Utility ─── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .sr-only { position:absolute; width:1px; height:1px; clip:rect(0,0,0,0); overflow:hidden; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(83,58,253,0.08); color: var(--purple);
+      font-size: 12px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(83,58,253,0.2);
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font); font-size: 16px; font-weight: 500; line-height: 1;
+      padding: 14px 28px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 200ms var(--ease-out), transform 150ms var(--ease-out), box-shadow 200ms var(--ease-out);
+      white-space: nowrap; text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--purple); color: var(--white);
+      box-shadow: 0 4px 14px rgba(83,58,253,0.35);
+    }
+    .btn-primary:hover { background: var(--purple-hover); box-shadow: 0 6px 20px rgba(83,58,253,0.45); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0) scale(0.97); }
+    .btn-primary-lg {
+      font-size: 18px; padding: 18px 36px; border-radius: 6px;
+      box-shadow: 0 6px 24px rgba(83,58,253,0.4);
+    }
+    .btn-ghost {
+      background: transparent; color: var(--purple);
+      border: 1px solid var(--border-purple);
+    }
+    .btn-ghost:hover { background: rgba(83,58,253,0.05); border-color: var(--purple); }
+
+    /* ─── Animated underline ─── */
+    .link-arrow {
+      display: inline-flex; align-items: center; gap: 4px;
+      color: var(--purple); font-weight: 500; font-size: 14px;
+      transition: gap 200ms var(--ease-out);
+    }
+    .link-arrow:hover { gap: 8px; }
+
+    /* ─── Scroll-reveal ─── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+    .reveal-delay-3 { transition-delay: 240ms; }
+    .reveal-delay-4 { transition-delay: 320ms; }
+    .reveal-delay-5 { transition-delay: 400ms; }
+
+    /* ─── Navbar ─── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 64px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 300ms, background 300ms;
+    }
+    .navbar.scrolled { border-bottom-color: var(--border); background: rgba(255,255,255,0.95); }
+    .nav-logo {
+      display: flex; align-items: center;
+    }
+    .nav-logo img { height: 36px; width: auto; display: block; }
+    .nav-cta { font-size: 14px; padding: 8px 18px; }
+
+    /* ─── Pre-headline ticker ─── */
+    .attention-bar {
+      background: linear-gradient(135deg, var(--brand-dark) 0%, #2d1b8e 100%);
+      color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 400;
+      text-align: center; padding: 10px 24px; letter-spacing: 0.2px;
+      position: relative; overflow: hidden;
+    }
+    .attention-bar::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 140px 24px 100px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(83,58,253,0.07) 0%, transparent 70%);
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%; filter: blur(80px);
+      pointer-events: none; z-index: 0;
+    }
+    .hero-orb-1 {
+      width: 500px; height: 500px; top: -100px; left: -100px;
+      background: radial-gradient(circle, rgba(83,58,253,0.12) 0%, transparent 70%);
+      animation: float1 8s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 400px; height: 400px; top: -50px; right: -80px;
+      background: radial-gradient(circle, rgba(234,34,97,0.08) 0%, transparent 70%);
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px, 20px); } }
+    @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-20px, 30px); } }
+    .hero-inner { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; }
+    .hero-pre {
+      font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ruby); margin-bottom: 24px; display: block;
+    }
+    .hero-headline {
+      font-size: clamp(36px, 5.5vw, 56px); font-weight: 300; line-height: 1.08;
+      letter-spacing: -1.4px; color: var(--navy); margin-bottom: 24px;
+    }
+    .hero-headline strong { font-weight: 600; }
+    .hero-headline .accent { color: var(--purple); }
+    .headline-sub-sm { font-size: 0.62em; font-weight: 300; color: var(--slate); letter-spacing: -0.5px; }
+    .hero-sub {
+      font-size: clamp(17px, 2.2vw, 20px); font-weight: 300; color: var(--slate);
+      line-height: 1.6; max-width: 620px; margin: 0 auto 40px;
+    }
+    .hero-cta-group {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .hero-cta-note { font-size: 13px; color: var(--slate); opacity: 0.7; }
+    .hero-social-proof {
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      margin-top: 56px; flex-wrap: wrap;
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--label); font-weight: 400;
+    }
+    .proof-icon { color: var(--green); font-size: 15px; }
+    .proof-divider { width: 1px; height: 20px; background: var(--border); }
+    .hero-mockup {
+      margin: 72px auto 0; max-width: 780px; position: relative;
+    }
+    .product-screenshot-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-std);
+      overflow: hidden;
+      transform: perspective(1200px) rotateX(4deg);
+      transition: transform 400ms var(--ease-out);
+    }
+    .product-screenshot-wrap:hover { transform: perspective(1200px) rotateX(0deg); }
+    .product-screenshot-img { width: 100%; height: auto; display: block; }
+    .mockup-bar {
+      background: #f7f9fc; border-bottom: 1px solid var(--border);
+      padding: 12px 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mockup-dot-r { background: #ff5f57; }
+    .mockup-dot-y { background: #febc2e; }
+    .mockup-dot-g { background: #28c840; }
+    .mockup-url {
+      flex: 1; background: var(--white); border: 1px solid var(--border);
+      border-radius: 4px; padding: 5px 10px; font-size: 12px; color: var(--slate);
+      text-align: center; margin: 0 12px;
+    }
+    .mockup-body { padding: 32px; }
+    .mockup-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #f7f9fc; border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px;
+    }
+    .stat-label { font-size: 11px; color: var(--slate); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .stat-value { font-size: 28px; font-weight: 600; color: var(--navy); letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
+    .stat-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(21,190,83,0.15); color: var(--green-text);
+      font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;
+      border: 1px solid rgba(21,190,83,0.3); margin-top: 4px;
+    }
+    .mockup-funnel { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .funnel-step {
+      flex: 1; min-width: 140px; background: var(--white);
+      border: 1px solid var(--border); border-radius: 6px; padding: 14px;
+    }
+    .funnel-step-label { font-size: 11px; color: var(--slate); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .funnel-step-title { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .funnel-arrow { color: var(--border-purple); font-size: 20px; flex-shrink: 0; }
+    .funnel-step.active { border-color: var(--purple); background: var(--purple-pale); }
+    .funnel-step.active .funnel-step-title { color: var(--purple); }
+
+    /* ─── Section layout ─── */
+    section { padding: 96px 0; }
+    .section-tag { margin-bottom: 16px; }
+    .section-headline {
+      font-size: clamp(28px, 4vw, 42px); font-weight: 300;
+      color: var(--navy); letter-spacing: -0.8px; line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px; font-weight: 300; color: var(--slate);
+      line-height: 1.6; max-width: 560px;
+    }
+    .section-sub.centered { max-width: 620px; margin: 0 auto; text-align: center; }
+
+    /* ─── Problem Section ─── */
+    .problem { background: var(--white); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .problem-costs {
+      display: flex; flex-direction: column; gap: 12px;
+      margin: 32px 0;
+    }
+    .cost-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; border-radius: 6px;
+      border: 1px solid var(--border); background: #fafbfc;
+      transition: border-color 200ms, background 200ms;
+    }
+    .cost-row:hover { border-color: #ffccd8; background: #fff5f7; }
+    .cost-label { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--label); font-weight: 400; }
+    .cost-x { color: #e53e5e; font-size: 16px; font-weight: 600; }
+    .cost-price { font-size: 15px; font-weight: 600; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .cost-total {
+      padding: 16px 18px;
+      background: linear-gradient(135deg, #fff0f4, #fff5f0);
+      border: 1px solid #ffd0d0; border-radius: 6px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cost-total-label { font-size: 14px; font-weight: 600; color: var(--ruby); }
+    .cost-total-price { font-size: 22px; font-weight: 700; color: var(--ruby); font-variant-numeric: tabular-nums; }
+    .problem-visual {
+      position: relative;
+    }
+    .frankenstein-stack {
+      display: flex; flex-direction: column; gap: 8px;
+      position: relative;
+    }
+    .frank-item {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 6px; padding: 16px; display: flex; align-items: center; gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 200ms var(--ease-out);
+    }
+    .frank-item:hover { transform: translateX(4px); }
+    .frank-icon {
+      width: 36px; height: 36px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .frank-name { font-size: 14px; font-weight: 500; color: var(--navy); }
+    .frank-price { font-size: 13px; color: var(--slate); margin-top: 2px; }
+    .frank-connector {
+      text-align: center; font-size: 11px; color: #e53e5e; font-weight: 600;
+      letter-spacing: 1px; padding: 4px 0;
+    }
+    .chaos-label {
+      background: #fff0f0; border: 1px dashed #ffb3c0; border-radius: 6px;
+      padding: 12px 16px; text-align: center; margin-top: 8px;
+      font-size: 13px; color: #e53e5e; font-weight: 500;
+    }
+
+    /* ─── Solution Section ─── */
+    .solution { background: var(--brand-dark); color: var(--white); overflow: hidden; position: relative; }
+    .solution::before {
+      content: ''; position: absolute; top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(83,58,253,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .solution-inner { position: relative; z-index: 1; }
+    .solution .section-headline { color: var(--white); }
+    .solution .section-sub { color: rgba(255,255,255,0.65); max-width: 560px; }
+    .solution-logo {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 8px;
+    }
+    .solution-logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--purple); }
+    .solution-arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(83,58,253,0.2); border: 1px solid rgba(83,58,253,0.3);
+      color: var(--purple-light); font-size: 20px; margin: 24px auto;
+    }
+    .unified-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(83,58,253,0.2); border: 1px solid rgba(83,58,253,0.3);
+      border-radius: 40px; padding: 10px 20px;
+      font-size: 14px; color: var(--purple-light); font-weight: 500;
+    }
+    .three-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+    .pillar-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 28px 24px;
+      transition: background 250ms, border-color 250ms, transform 250ms var(--ease-out);
+    }
+    .pillar-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(83,58,253,0.4); transform: translateY(-3px); }
+    .pillar-icon { font-size: 28px; margin-bottom: 16px; }
+    .pillar-title { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .pillar-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ─── Features ─── */
+    .features { background: var(--white); }
+    .features-header { text-align: center; margin-bottom: 72px; }
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .feature-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 280ms var(--ease-out), border-color 280ms, transform 280ms var(--ease-out);
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--magenta));
+      opacity: 0; transition: opacity 280ms;
+    }
+    .feature-card:hover { box-shadow: var(--shadow-std); border-color: var(--border-purple); transform: translateY(-3px); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-num {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--purple-pale); border: 1px solid rgba(83,58,253,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; margin-bottom: 16px;
+    }
+    .feature-title { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+    .feature-desc { font-size: 15px; color: var(--slate); line-height: 1.65; }
+    .feature-highlight {
+      margin-top: 14px; padding: 10px 14px;
+      background: var(--purple-pale); border: 1px solid rgba(83,58,253,0.15);
+      border-radius: 6px; font-size: 13px; color: var(--purple); font-style: italic;
+    }
+
+    /* ─── Social Proof ─── */
+    .social-proof { background: #f7f9fc; }
+    .social-proof-header { text-align: center; margin-bottom: 64px; }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 26px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: 16px;
+      position: relative; overflow: hidden;
+      transition: box-shadow 280ms var(--ease-out), border-color 280ms, transform 280ms var(--ease-out);
+    }
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute; top: -8px; right: 20px;
+      font-size: 96px; line-height: 1; color: var(--purple-pale);
+      font-family: Georgia, serif; pointer-events: none;
+    }
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-std);
+      border-color: var(--border-purple);
+      transform: translateY(-4px);
+    }
+    .testimonial-top {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .t-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 700; color: var(--white);
+      flex-shrink: 0; letter-spacing: 0;
+    }
+    .t-avatar-1 { background: linear-gradient(135deg, #533afd, #7b61ff); }
+    .t-avatar-2 { background: linear-gradient(135deg, #ea2261, #f96bee); }
+    .t-avatar-3 { background: linear-gradient(135deg, #0ea5e9, #06b6d4); }
+    .t-meta { flex: 1; }
+    .t-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .t-role { font-size: 12px; color: var(--slate); margin-top: 2px; }
+    .t-stars { color: #f59e0b; font-size: 14px; letter-spacing: 1px; flex-shrink: 0; }
+    .t-headline {
+      font-size: 15px; font-weight: 700; color: var(--navy);
+      line-height: 1.45; border: none; padding: 0; margin: 0;
+      font-style: normal;
+      border-left: 3px solid var(--purple);
+      padding-left: 14px;
+    }
+    .t-body {
+      font-size: 14px; color: var(--slate); line-height: 1.7;
+      flex: 1;
+    }
+    .t-body strong { color: var(--navy); }
+    .t-body em { font-style: italic; color: var(--label); }
+    .t-objection-killed {
+      display: flex; align-items: flex-start; gap: 8px;
+      background: rgba(83,58,253,0.05);
+      border: 1px solid rgba(83,58,253,0.15);
+      border-radius: 6px; padding: 10px 12px;
+      font-size: 12px; color: var(--label); line-height: 1.5;
+      margin-top: auto;
+    }
+    .t-objection-killed strong { color: var(--purple); }
+    .t-objection-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+    @media (max-width: 900px) {
+      .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    /* ─── Value Stack ─── */
+    .value-stack { background: #f7f9fc; }
+    .value-stack-header { text-align: center; margin-bottom: 56px; }
+    .value-table { max-width: 680px; margin: 0 auto; }
+    .value-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      transition: background 200ms;
+    }
+    .value-row:hover { background: rgba(83,58,253,0.03); }
+    .value-row:last-child { border-bottom: none; }
+    .value-item-name { font-size: 15px; color: var(--label); display: flex; align-items: center; gap: 10px; }
+    .value-check { color: var(--purple); font-size: 16px; font-weight: 600; }
+    .value-price { font-size: 15px; color: var(--slate); text-decoration: line-through; font-variant-numeric: tabular-nums; }
+    .value-total-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px; margin-top: 16px;
+      background: linear-gradient(135deg, #fff0f4, #fff5f7);
+      border: 1px solid #ffd0d0; border-radius: 8px;
+    }
+    .value-total-label { font-size: 16px; font-weight: 700; color: var(--ruby); }
+    .value-total-price { font-size: 24px; font-weight: 700; color: var(--ruby); font-variant-numeric: tabular-nums; }
+    .value-year { font-size: 13px; color: #e53e5e; font-weight: 500; margin-top: 4px; text-align: right; }
+
+    /* ─── Pricing ─── */
+    .pricing { background: var(--white); }
+    .pricing-header { text-align: center; margin-bottom: 56px; }
+    .pricing-highlight {
+      font-size: clamp(48px, 7vw, 80px); font-weight: 700;
+      color: var(--navy); letter-spacing: -2px;
+      display: flex; align-items: flex-start; justify-content: center; gap: 4px;
+      line-height: 1;
+    }
+    .pricing-currency { font-size: clamp(24px, 3vw, 36px); margin-top: 8px; font-weight: 600; }
+    .pricing-period { font-size: clamp(16px, 2vw, 22px); font-weight: 400; color: var(--slate); margin-top: 16px; }
+    .pricing-cross {
+      font-size: clamp(18px, 2.5vw, 26px); color: var(--slate);
+      text-decoration: line-through; margin-bottom: 16px; font-weight: 300;
+    }
+    .pricing-savings {
+      display: inline-block; background: rgba(21,190,83,0.15);
+      border: 1px solid rgba(21,190,83,0.3); color: var(--green-text);
+      font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 4px;
+      margin-top: 8px;
+    }
+    .pricing-cta-wrap { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+    /* ─── Bonuses ─── */
+    .bonuses { background: #f7f9fc; }
+    .bonuses-header { text-align: center; margin-bottom: 56px; }
+    .bonuses-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .bonus-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 36px 32px;
+      box-shadow: var(--shadow-sm); position: relative;
+    }
+    .bonus-badge {
+      position: absolute; top: -14px; left: 28px;
+      background: linear-gradient(135deg, var(--ruby), var(--magenta));
+      color: var(--white); font-size: 11px; font-weight: 700;
+      padding: 5px 12px; border-radius: 4px; letter-spacing: 0.5px;
+      text-transform: uppercase; box-shadow: 0 4px 12px rgba(234,34,97,0.35);
+    }
+    .bonus-icon { font-size: 36px; margin-bottom: 16px; }
+    .bonus-title { font-size: 19px; font-weight: 700; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+    .bonus-desc { font-size: 15px; color: var(--slate); line-height: 1.65; margin-bottom: 16px; }
+    .bonus-value-row { display: flex; align-items: center; gap: 10px; }
+    .bonus-original { font-size: 13px; color: var(--slate); text-decoration: line-through; }
+    .bonus-free { font-size: 15px; font-weight: 700; color: var(--green-text); }
+
+    /* ─── Guarantee ─── */
+    .guarantee { background: var(--brand-dark); color: var(--white); text-align: center; }
+    .guarantee-badge {
+      width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 32px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: rgba(83,58,253,0.2); border: 2px solid rgba(83,58,253,0.4);
+      box-shadow: 0 0 40px rgba(83,58,253,0.3);
+    }
+    .guarantee-badge-num { font-size: 32px; font-weight: 700; color: var(--white); line-height: 1; }
+    .guarantee-badge-label { font-size: 11px; color: var(--purple-light); font-weight: 500; letter-spacing: 0.5px; }
+    .guarantee .section-headline { color: var(--white); max-width: 640px; margin: 0 auto 24px; }
+    .guarantee-desc { font-size: 17px; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .guarantee-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+    .guarantee-point {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 24px; text-align: center;
+    }
+    .guarantee-point-icon { font-size: 28px; margin-bottom: 12px; }
+    .guarantee-point-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+    /* ─── Crossroads ─── */
+    .crossroads { background: var(--white); }
+    .crossroads-header { text-align: center; margin-bottom: 56px; }
+    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .option-card {
+      border-radius: 10px; padding: 36px 32px;
+      transition: transform 250ms var(--ease-out), box-shadow 250ms;
+    }
+    .option-bad {
+      background: #fff8f8; border: 1px solid #ffd0d0;
+    }
+    .option-bad:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(229,62,94,0.1); }
+    .option-good {
+      background: linear-gradient(135deg, var(--purple-pale), #f0f0ff);
+      border: 2px solid rgba(83,58,253,0.3);
+    }
+    .option-good:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(83,58,253,0.2); }
+    .option-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .option-num-bad { color: #e53e5e; }
+    .option-num-good { color: var(--purple); }
+    .option-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 12px; line-height: 1.3; }
+    .option-desc { font-size: 15px; color: var(--slate); line-height: 1.65; }
+    .option-outcome {
+      margin-top: 20px; padding: 12px 16px; border-radius: 6px;
+      font-size: 14px; font-weight: 500;
+    }
+    .outcome-bad { background: #ffecee; color: #e53e5e; border: 1px solid #ffc7ce; }
+    .outcome-good { background: rgba(83,58,253,0.1); color: var(--purple); border: 1px solid rgba(83,58,253,0.2); }
+
+    /* ─── Final CTA ─── */
+    .final-cta {
+      background: linear-gradient(135deg, var(--brand-dark) 0%, #0f0b3e 100%);
+      padding: 120px 24px; text-align: center; position: relative; overflow: hidden;
+    }
+    .final-cta::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(83,58,253,0.2) 0%, transparent 70%);
+    }
+    .final-cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .final-cta .section-headline { color: var(--white); margin-bottom: 20px; }
+    .final-cta-sub { font-size: 18px; color: rgba(255,255,255,0.6); margin-bottom: 40px; line-height: 1.6; }
+    .final-cta-note { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 16px; }
+    .cta-pulse { animation: pulse-ring 2s ease-out infinite; }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 6px 24px rgba(83,58,253,0.4); }
+      50% { box-shadow: 0 8px 32px rgba(83,58,253,0.7), 0 0 0 8px rgba(83,58,253,0.1); }
+      100% { box-shadow: 0 6px 24px rgba(83,58,253,0.4); }
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--navy); padding: 32px 24px;
+      text-align: center;
+    }
+    footer p { font-size: 13px; color: rgba(255,255,255,0.35); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .navbar { padding: 0 16px; }
+      .hero { padding: 100px 16px 72px; }
+      .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+      .three-pillars { grid-template-columns: 1fr; gap: 16px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .bonuses-grid { grid-template-columns: 1fr; }
+      .options-grid { grid-template-columns: 1fr; }
+      .guarantee-points { grid-template-columns: 1fr; }
+      .mockup-stats { grid-template-columns: 1fr 1fr; }
+      .mockup-funnel { flex-direction: column; }
+      .funnel-arrow { transform: rotate(90deg); }
+      section { padding: 64px 0; }
+      .hero-social-proof { gap: 12px; }
+      .proof-divider { display: none; }
+    }
+    @media (max-width: 480px) {
+      .mockup-stats { grid-template-columns: 1fr; }
+      .hero-headline { letter-spacing: -0.8px; }
+      .btn-primary-lg { font-size: 16px; padding: 16px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       ATTENTION BAR
+  ════════════════════════════════════════════ -->
+  <div class="attention-bar" role="alert">
+    <strong>ATTENTION BEGINNERS:</strong> STOP PAYING EXPENSIVE MONTHLY FEES FOR MULTIPLE PLATFORMS JUST TO START SELLING ONLINE...
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-logo">
+      <img src="assets/logo.png" alt="ConvertEasy" />
+    </div>
+    <a href="https://buy.stripe.com/dRm8wH2RkbQg1WE5ry73G0a" target="_blank" rel="noopener" class="btn btn-primary nav-cta" aria-label="Start your free trial">
+      Start Free — $0 Today
+    </a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
+  <header class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="hero-pre reveal">The Fool-Proof All-in-One Funnel Platform</span>
+      <h1 class="hero-headline reveal reveal-delay-1">
+        The Only <strong>"Fool-Proof"</strong> System That Gets Your First<br />
+        Sales Funnel Live In <span class="accent">5 Minutes</span><br />
+        <span class="headline-sub-sm">(For Less Than The Price Of A Coffee)</span>
+      </h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        Create High-Converting Landing Pages, Interactive Quizzes, and VSLs (Video Sales Letters) all in one place. No coding required. No design experience needed. No ridiculous monthly fees.
+      </p>
+      <div class="hero-cta-group reveal reveal-delay-3">
+        <a href="https://buy.stripe.com/dRm8wH2RkbQg1WE5ry73G0a" class="btn btn-primary btn-primary-lg cta-pulse" id="hero-cta" target="_blank" rel="noopener">
+          👉 I WANT MY 30-DAY FREE TRIAL NOW
+        </a>
+      </div>
+
+      <div class="hero-social-proof reveal reveal-delay-4" aria-label="Trust indicators">
+        <div class="proof-item">
+          <span class="proof-icon" aria-hidden="true">✓</span>
+          <span>30 days free</span>
+        </div>
+        <div class="proof-divider" aria-hidden="true"></div>
+        <div class="proof-item">
+          <span class="proof-icon" aria-hidden="true">✓</span>
+          <span>Cancel anytime</span>
+        </div>
+        <div class="proof-divider" aria-hidden="true"></div>
+        <div class="proof-item">
+          <span class="proof-icon" aria-hidden="true">✓</span>
+          <span>Only $5/month after trial</span>
+        </div>
+      </div>
+
+      <!-- Real Product Dashboard -->
+      <div class="hero-mockup reveal reveal-delay-5" aria-label="ConvertEasy dashboard real screenshot" role="img">
+        <div class="product-screenshot-wrap">
+          <div class="mockup-bar" aria-hidden="true">
+            <div class="mockup-dot mockup-dot-r"></div>
+            <div class="mockup-dot mockup-dot-y"></div>
+            <div class="mockup-dot mockup-dot-g"></div>
+            <div class="mockup-url">app.converteasy.io/dashboard</div>
+          </div>
+          <img src="assets/dashboard.png" alt="ConvertEasy Executive Dashboard showing funnel analytics, quiz metrics and conversion data" class="product-screenshot-img" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       PROBLEM SECTION
+  ════════════════════════════════════════════ -->
+  <section class="problem" aria-labelledby="problem-heading">
+    <div class="container">
+      <div class="problem-grid">
+        <div>
+          <div class="tag section-tag reveal">The Hidden Truth</div>
+          <h2 class="section-headline reveal reveal-delay-1" id="problem-heading">
+            Starting an Online Business Today Feels Like a Financial Trap
+          </h2>
+          <p class="section-sub reveal reveal-delay-2">
+            Every "guru" tells you to build a funnel, but they forget to mention the hidden costs. To get a simple campaign live today, you are forced to piece together a "Frankenstein" of complex and expensive tools:
+          </p>
+          <div class="problem-costs reveal reveal-delay-3" role="list" aria-label="Tool costs breakdown">
+            <div class="cost-row" role="listitem">
+              <div class="cost-label">
+                <span class="cost-x" aria-hidden="true">✗</span>
+                Page Builder (like ClickFunnels)
+              </div>
+              <div class="cost-price">$97/mo</div>
+            </div>
+            <div class="cost-row" role="listitem">
+              <div class="cost-label">
+                <span class="cost-x" aria-hidden="true">✗</span>
+                VSL Video Hosting (like Vimeo/VTurb)
+              </div>
+              <div class="cost-price">$40/mo</div>
+            </div>
+            <div class="cost-row" role="listitem">
+              <div class="cost-label">
+                <span class="cost-x" aria-hidden="true">✗</span>
+                Interactive Quiz Maker (like Typeform)
+              </div>
+              <div class="cost-price">$30/mo</div>
+            </div>
+            <div class="cost-total">
+              <div class="cost-total-label">Total: EVERY SINGLE MONTH</div>
+              <div class="cost-total-price">$167+</div>
+            </div>
+          </div>
+          <p class="reveal reveal-delay-4" style="font-size:15px; color:var(--slate); line-height:1.7; margin-top:16px;">
+            <strong style="color:var(--navy);">And this is before you even make your first sale.</strong> If you're just starting out, this drains your budget, kills your motivation, and forces you to waste weeks trying to integrate everything using confusing code and settings.
+          </p>
+        </div>
+        <div class="problem-visual reveal reveal-delay-2">
+          <div class="frankenstein-stack" role="presentation" aria-label="Complex tool ecosystem visualization">
+            <div class="frank-item">
+              <div class="frank-icon" style="background:#fff0f0;" aria-hidden="true">🌀</div>
+              <div>
+                <div class="frank-name">ClickFunnels</div>
+                <div class="frank-price">Page Builder — $97/month</div>
+              </div>
+            </div>
+            <div class="frank-connector" aria-hidden="true">↓ Connect via Zapier (more $$$) ↓</div>
+            <div class="frank-item">
+              <div class="frank-icon" style="background:#f0f8ff;" aria-hidden="true">📹</div>
+              <div>
+                <div class="frank-name">VTurb / Vimeo</div>
+                <div class="frank-price">VSL Hosting — $40/month</div>
+              </div>
+            </div>
+            <div class="frank-connector" aria-hidden="true">↓ Embed manually (headaches) ↓</div>
+            <div class="frank-item">
+              <div class="frank-icon" style="background:#f8fff0;" aria-hidden="true">❓</div>
+              <div>
+                <div class="frank-name">Typeform</div>
+                <div class="frank-price">Quiz Maker — $30/month</div>
+              </div>
+            </div>
+            <div class="chaos-label" role="alert">
+              ⚠️ Nothing talks to each other. Weeks of setup. Sales lost.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SOLUTION SECTION
+  ════════════════════════════════════════════ -->
+  <section class="solution" aria-labelledby="solution-heading">
+    <div class="container solution-inner">
+      <div style="text-align:center; margin-bottom:48px;">
+        <div class="tag section-tag reveal" style="background:rgba(83,58,253,0.15); border-color:rgba(83,58,253,0.3); color:var(--purple-light);">
+          The Solution
+        </div>
+        <div class="solution-logo reveal reveal-delay-1">
+          <div class="solution-logo-dot" aria-hidden="true"></div>
+          ConvertEasy
+        </div>
+        <h2 class="section-headline reveal reveal-delay-1" id="solution-heading">
+          The Only "Anti-Tech"<br />All-In-One Solution
+        </h2>
+        <p class="section-sub reveal reveal-delay-2" style="max-width:600px; margin:0 auto; color:rgba(255,255,255,0.6);">
+          We built ConvertEasy specifically for beginners who want to launch fast, sell more, and keep the money in their own pockets. We took the 3 most powerful conversion tools on the market and unified them into a single, ridiculously easy-to-use dashboard.
+        </p>
+      </div>
+
+      <div class="solution-arrow reveal" aria-hidden="true">↓</div>
+
+      <div style="text-align:center; margin-bottom:40px;" class="reveal">
+        <div class="unified-pill">
+          <span>One Dashboard.</span>
+          <span>Everything Connected.</span>
+          <span>Zero Headaches.</span>
+        </div>
+      </div>
+
+      <div class="three-pillars" role="list" aria-label="ConvertEasy's three core tools">
+        <div class="pillar-card reveal" role="listitem">
+          <div class="pillar-icon" aria-hidden="true">📄</div>
+          <div class="pillar-title">Landing Pages</div>
+          <p class="pillar-desc">High-converting, drag-and-drop landing pages. Proven templates. Zero coding. Live in minutes.</p>
+        </div>
+        <div class="pillar-card reveal reveal-delay-1" role="listitem">
+          <div class="pillar-icon" aria-hidden="true">🧠</div>
+          <div class="pillar-title">AI-Powered Quizzes</div>
+          <p class="pillar-desc">Warm up cold traffic with interactive quizzes that segment leads and skyrocket conversion rates.</p>
+        </div>
+        <div class="pillar-card reveal reveal-delay-2" role="listitem">
+          <div class="pillar-icon" aria-hidden="true">🎬</div>
+          <div class="pillar-title">Smart VSL Player</div>
+          <p class="pillar-desc">Host your video sales letters with A/B testing, smart buy buttons, and deep analytics. All built in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FEATURES SECTION
+  ════════════════════════════════════════════ -->
+  <section class="features" aria-labelledby="features-heading">
+    <div class="container">
+      <div class="features-header">
+        <div class="tag section-tag reveal">Everything You Need</div>
+        <h2 class="section-headline reveal reveal-delay-1" id="features-heading">
+          Absolutely Everything You Need<br />To Make Your First Sale Today
+        </h2>
+        <p class="section-sub centered reveal reveal-delay-2">
+          Each feature is engineered to eliminate a specific barrier standing between you and your first dollar online.
+        </p>
+      </div>
+
+      <div class="features-grid" role="list">
+
+        <article class="feature-card reveal" role="listitem">
+          <div class="feature-num" aria-hidden="true">🎯</div>
+          <h3 class="feature-title">1-Click "Done-For-You" Funnels</h3>
+          <p class="feature-desc">
+            Don't freeze staring at a blank screen. Choose from our library of proven templates (Weight Loss, E-commerce, Info-products). Click once, and your Landing Page, Quiz, and VSL are instantly connected and ready to publish.
+          </p>
+        </article>
+
+        <article class="feature-card reveal reveal-delay-1" role="listitem">
+          <div class="feature-num" aria-hidden="true">🤖</div>
+          <h3 class="feature-title">AI Copy &amp; Quiz Generator</h3>
+          <p class="feature-desc">
+            Don't know what to write? Just type in your niche, and our native AI will generate the 5 most persuasive questions to warm up your leads in the Quiz before they even watch your video.
+          </p>
+        </article>
+
+        <article class="feature-card reveal reveal-delay-2" role="listitem">
+          <div class="feature-num" aria-hidden="true">📊</div>
+          <h3 class="feature-title">"Plain English" AI Analytics</h3>
+          <p class="feature-desc">
+            You don't need to be a data scientist. Our AI analyzes your funnel and tells you exactly what to fix.
+          </p>
+          <div class="feature-highlight" aria-label="Example AI insight">
+            💡 "Hey, 60% of your viewers leave at 02:15 of the video. We suggest changing the angle of your copy at 02:00!"
+          </div>
+        </article>
+
+        <article class="feature-card reveal reveal-delay-3" role="listitem">
+          <div class="feature-num" aria-hidden="true">⚡</div>
+          <h3 class="feature-title">"Zero-Code" Native Integrations</h3>
+          <p class="feature-desc">
+            Connect your favorite payment gateways (Stripe, PayPal, Hotmart) with just one click. Zero headaches. Zero developers. Zero waiting.
+          </p>
+        </article>
+
+        <article class="feature-card reveal reveal-delay-1" role="listitem" style="grid-column: 1 / -1; max-width: 620px; margin: 0 auto; width: 100%;">
+          <div class="feature-num" aria-hidden="true">🎬</div>
+          <h3 class="feature-title">Smart VSL Player</h3>
+          <p class="feature-desc">
+            Speed control, smart-delay buy buttons, custom headlines inside the video, and autopilot A/B Testing to squeeze every drop of conversion out of your traffic. Your VSL becomes a selling machine on autopilot.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SOCIAL PROOF
+  ════════════════════════════════════════════ -->
+  <section class="social-proof" aria-labelledby="social-proof-heading">
+    <div class="container">
+      <div class="social-proof-header">
+        <div class="tag section-tag reveal">Real Results</div>
+        <h2 class="section-headline reveal reveal-delay-1" id="social-proof-heading">
+          See What Happens When You Stop Fighting<br />Technology and Focus Only on Profiting
+        </h2>
+        <p class="section-sub centered reveal reveal-delay-2">
+          These are real people who were exactly where you are right now — and made the switch.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <!-- Testimonial 1 -->
+        <article class="testimonial-card reveal" aria-label="Testimonial from Mariana C.">
+          <div class="testimonial-top">
+            <div class="t-avatar t-avatar-1" aria-hidden="true">M</div>
+            <div class="t-meta">
+              <div class="t-name">Mariana C.</div>
+              <div class="t-role">Digital Marketing Beginner</div>
+            </div>
+            <div class="t-stars" aria-label="5 out of 5 stars">
+              <span aria-hidden="true">★★★★★</span>
+            </div>
+          </div>
+          <blockquote class="t-headline">
+            "I spent 3 months trying to set up WordPress and gave up. With ConvertEasy, I launched on the same day."
+          </blockquote>
+          <p class="t-body">
+            I'm not a developer. I tried signing up for expensive platforms, but I couldn't get the quiz to connect with my page and my video. It was a complete nightmare. I canceled everything, grabbed the ConvertEasy free trial and used a ready-made template. In less than 2 hours my weight loss funnel was live and getting clicks. <strong>I've already made my first 5 sales!</strong>
+          </p>
+          <div class="t-objection-killed">
+            <span class="t-objection-icon" aria-hidden="true">🛑</span>
+            <span><strong>Objection killed:</strong> "It's too complicated / I'm not technical"</span>
+          </div>
+        </article>
+
+        <!-- Testimonial 2 -->
+        <article class="testimonial-card reveal reveal-delay-1" aria-label="Testimonial from Lucas R.">
+          <div class="testimonial-top">
+            <div class="t-avatar t-avatar-2" aria-hidden="true">L</div>
+            <div class="t-meta">
+              <div class="t-name">Lucas R.</div>
+              <div class="t-role">Former Prisoner of Expensive Subscriptions</div>
+            </div>
+            <div class="t-stars" aria-label="5 out of 5 stars">
+              <span aria-hidden="true">★★★★★</span>
+            </div>
+          </div>
+          <blockquote class="t-headline">
+            "I was paying $130/month to sell nothing. Now I pay the price of a coffee."
+          </blockquote>
+          <p class="t-body">
+            The worst part of starting out is the bills arriving before the profit. I was paying for ClickFunnels AND Typeform and going into the red every month. I migrated my entire operation to ConvertEasy. Besides saving an insane amount per year, their AI created my Quiz questions and <strong>my email capture rate absolutely skyrocketed.</strong> Ridiculously easy.
+          </p>
+          <div class="t-objection-killed">
+            <span class="t-objection-icon" aria-hidden="true">🛑</span>
+            <span><strong>Objection killed:</strong> "These tools are too expensive / It sounds too good to be true"</span>
+          </div>
+        </article>
+
+        <!-- Testimonial 3 -->
+        <article class="testimonial-card reveal reveal-delay-2" aria-label="Testimonial from Thiago M.">
+          <div class="testimonial-top">
+            <div class="t-avatar t-avatar-3" aria-hidden="true">T</div>
+            <div class="t-meta">
+              <div class="t-name">Thiago M.</div>
+              <div class="t-role">Info-product Creator</div>
+            </div>
+            <div class="t-stars" aria-label="5 out of 5 stars">
+              <span aria-hidden="true">★★★★★</span>
+            </div>
+          </div>
+          <blockquote class="t-headline">
+            "Their AI told me exactly where I was losing money — and fixed it in one click."
+          </blockquote>
+          <p class="t-body">
+            My VSL wasn't converting and I had no idea why. I can't read complex charts. The ConvertEasy dashboard just sent me a plain-language alert: <em>"Thiago, 65% of your leads are dropping off at the 2-minute mark — we suggest moving the buy button earlier."</em> I dragged the button, changed the delay with 1 click and <strong>my ROI tripled the next day.</strong> Absolutely surreal.
+          </p>
+          <div class="t-objection-killed">
+            <span class="t-objection-icon" aria-hidden="true">🛑</span>
+            <span><strong>Objection killed:</strong> "I don't know how to read metrics / I don't know how to optimize"</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       VALUE STACK
+  ════════════════════════════════════════════ -->
+  <section class="value-stack" aria-labelledby="value-heading">
+    <div class="container">
+      <div class="value-stack-header">
+        <div class="tag section-tag reveal">Brutal Honesty</div>
+        <h2 class="section-headline reveal reveal-delay-1" id="value-heading">
+          Let's Be Brutally Honest About<br />How Much This Would Cost in the Real World
+        </h2>
+        <p class="section-sub centered reveal reveal-delay-2">
+          If you were to build this exact ecosystem today using the "standard" tools on the market, here's what you'd spend every single month:
+        </p>
+      </div>
+
+      <div class="value-table reveal">
+        <div role="table" aria-label="Value comparison table">
+          <div class="value-row" role="row">
+            <div class="value-item-name" role="cell">
+              <span class="value-check" aria-hidden="true">✓</span>
+              Professional Landing Page Builder
+            </div>
+            <div class="value-price" role="cell" aria-label="Value: $97 per month">$97/month</div>
+          </div>
+          <div class="value-row" role="row">
+            <div class="value-item-name" role="cell">
+              <span class="value-check" aria-hidden="true">✓</span>
+              VSL Hosting with A/B Testing and Retention
+            </div>
+            <div class="value-price" role="cell" aria-label="Value: $40 per month">$40/month</div>
+          </div>
+          <div class="value-row" role="row">
+            <div class="value-item-name" role="cell">
+              <span class="value-check" aria-hidden="true">✓</span>
+              Professional Quiz Maker
+            </div>
+            <div class="value-price" role="cell" aria-label="Value: $30 per month">$30/month</div>
+          </div>
+        </div>
+        <div class="value-total-row" role="region" aria-label="Total comparison">
+          <div class="value-total-label">What you'd pay elsewhere:</div>
+          <div>
+            <div class="value-total-price" aria-label="$167 every single month">$167/month</div>
+            <div class="value-year" aria-label="Over $2,000 per year">Over $2,000 a year</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top:24px; font-size:15px; color:var(--slate); max-width:560px; margin-left:auto; margin-right:auto;" class="reveal">
+        And that's without counting the headaches and sleepless nights trying to make one tool talk to another.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PRICING
+  ════════════════════════════════════════════ -->
+  <section class="pricing" id="trial" aria-labelledby="pricing-heading">
+    <div class="container">
+      <div class="pricing-header">
+        <div class="tag section-tag reveal">The Irresistible Offer</div>
+        <h2 class="section-headline reveal reveal-delay-1" id="pricing-heading">
+          ConvertEasy's Goal Isn't to Drain<br />Your Budget Before You Turn a Profit
+        </h2>
+        <p class="section-sub centered reveal reveal-delay-2">
+          Our goal is to destroy the barrier to entry and get you in the game. That's why you won't pay $167/month. You won't even pay a tenth of that.
+        </p>
+      </div>
+
+      <div style="text-align:center;" class="reveal">
+        <p class="pricing-cross" aria-label="Regular price: $167 per month, strikethrough">$167/month</p>
+        <div class="pricing-highlight" aria-label="Your price: $5 per month">
+          <span class="pricing-currency" aria-hidden="true">$</span>
+          <span>5</span>
+          <span class="pricing-period">/month</span>
+        </div>
+        <p style="font-size:17px; color:var(--slate); margin-top:16px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.6;">
+          Yes. Literally the price of a coffee to get the entire engine of your online business running.
+        </p>
+        <div class="pricing-savings" aria-label="You save $162 per month, 97% discount">
+          You save $162/month — 97% OFF
+        </div>
+        <div class="pricing-cta-wrap">
+          <a href="https://buy.stripe.com/dRm8wH2RkbQg1WE5ry73G0a" target="_blank" rel="noopener" class="btn btn-primary btn-primary-lg cta-pulse" aria-label="Start your 30-day free trial">
+            👉 I WANT MY 30-DAY FREE TRIAL NOW
+          </a>
+          <p class="hero-cta-note">Start today, no strings attached. Cancel anytime. After that, only $5/month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       BONUSES
+  ════════════════════════════════════════════ -->
+  <section class="bonuses" aria-labelledby="bonuses-heading">
+    <div class="container">
+      <div class="bonuses-header">
+        <div class="tag section-tag reveal">Exclusive Bonuses</div>
+        <h2 class="section-headline reveal reveal-delay-1" id="bonuses-heading">
+          To Make This Decision<br />Impossible to Ignore
+        </h2>
+        <p class="section-sub centered reveal reveal-delay-2">
+          If you create your account today, we will include 2 Exclusive Bonuses that solve the biggest roadblocks for beginners.
+        </p>
+      </div>
+
+      <div class="bonuses-grid">
+        <article class="bonus-card reveal" aria-labelledby="bonus-1-title">
+          <div class="bonus-badge" aria-label="Bonus 1">BONUS 1</div>
+          <div class="bonus-icon" aria-hidden="true">🎁</div>
+          <h3 class="bonus-title" id="bonus-1-title">"Canvas Build" Library &amp; Templates</h3>
+          <p class="bonus-desc">
+            No design experience? No problem. Access our proven templates, drag and drop whatever you want, edit the text, and your Landing Page + Quiz + VSL funnel will be ready in minutes.
+          </p>
+          <div class="bonus-value-row">
+            <span class="bonus-original" aria-label="Original value: $97">Value: $97</span>
+            <span aria-hidden="true">→</span>
+            <span class="bonus-free">Today: FREE</span>
+          </div>
+        </article>
+
+        <article class="bonus-card reveal reveal-delay-1" aria-labelledby="bonus-2-title">
+          <div class="bonus-badge" aria-label="Bonus 2">BONUS 2</div>
+          <div class="bonus-icon" aria-hidden="true">📧</div>
+          <h3 class="bonus-title" id="bonus-2-title">AI Automated Email Recovery</h3>
+          <p class="bonus-desc">
+            Did the lead leave their email in the Quiz but didn't reach the end of the funnel to buy? Our AI automatically triggers an editable sequence of recovery emails to rescue that sale for you. You get 500 free sends every month, without needing to subscribe to expensive email marketing tools.
+          </p>
+          <div class="bonus-value-row">
+            <span class="bonus-original" aria-label="Original value: $29 per month">Value: $29/month</span>
+            <span aria-hidden="true">→</span>
+            <span class="bonus-free">Today: FREE</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       GUARANTEE
+  ════════════════════════════════════════════ -->
+  <section class="guarantee" aria-labelledby="guarantee-heading">
+    <div class="container">
+      <div class="guarantee-badge" role="img" aria-label="30-day money-back guarantee">
+        <div class="guarantee-badge-num">30</div>
+        <div class="guarantee-badge-label">DAYS FREE</div>
+      </div>
+      <h2 class="section-headline reveal" id="guarantee-heading">
+        30 Days 100% FREE
+      </h2>
+      <p class="guarantee-desc reveal reveal-delay-1">
+        We will take on 100% of the risk for you. By signing up now, you get 30 full days to use the platform for free. Create your Landing Pages, put your VSLs online, test your Quizzes with our AI, and make your first sales. All on us.
+      </p>
+      <p class="guarantee-desc reveal reveal-delay-2" style="margin-top:16px;">
+        If after 30 days you are not absolutely certain that this is the easiest and most profitable tool you have ever used, just cancel with 1 single click in your dashboard. No contracts, no hidden fees, no hard feelings.
+      </p>
+
+      <div class="guarantee-points reveal reveal-delay-3" role="list" aria-label="Guarantee details">
+        <div class="guarantee-point" role="listitem">
+          <div class="guarantee-point-icon" aria-hidden="true">🔒</div>
+          <p class="guarantee-point-text">Start your 30-day free trial and test the full platform risk-free</p>
+        </div>
+        <div class="guarantee-point" role="listitem">
+          <div class="guarantee-point-icon" aria-hidden="true">🖱️</div>
+          <p class="guarantee-point-text">Cancel with 1 single click in your dashboard. No forms, no calls</p>
+        </div>
+        <div class="guarantee-point" role="listitem">
+          <div class="guarantee-point-icon" aria-hidden="true">📄</div>
+          <p class="guarantee-point-text">No contracts, no hidden fees, no hard feelings. Ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CROSSROADS
+  ════════════════════════════════════════════ -->
+  <section class="crossroads" aria-labelledby="crossroads-heading">
+    <div class="container">
+      <div class="crossroads-header">
+        <div class="tag section-tag reveal">The Logical Choice</div>
+        <h2 class="section-headline reveal reveal-delay-1" id="crossroads-heading">
+          The Logical Choice Right Now Is Simple.<br />You Have Two Options:
+        </h2>
+      </div>
+      <div class="options-grid">
+        <article class="option-card option-bad reveal" aria-labelledby="option-1-title">
+          <div class="option-num option-num-bad">Option 1</div>
+          <h3 class="option-title" id="option-1-title">Keep Paying $167+/Month for a "Frankenstein" of Slow Platforms</h3>
+          <p class="option-desc">
+            Close this page, keep paying $167+ a month for a "Frankenstein" of slow platforms, and continue losing sales while wrestling with code and complex settings.
+          </p>
+          <div class="option-outcome outcome-bad" role="status">
+            ✗ Continue draining your budget before your first sale
+          </div>
+        </article>
+        <article class="option-card option-good reveal reveal-delay-1" aria-labelledby="option-2-title">
+          <div class="option-num option-num-good">Option 2</div>
+          <h3 class="option-title" id="option-2-title">Get In Free for 30 Days and Get Your First Funnel Running in 5 Minutes</h3>
+          <p class="option-desc">
+            Click the button below, get in for free for 30 days, use our high-converting templates, and get your first funnel running in the next 5 minutes, with zero risk.
+          </p>
+          <div class="option-outcome outcome-good" role="status">
+            ✓ The choice for those who want to profit is one click away
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FINAL CTA
+  ════════════════════════════════════════════ -->
+  <section class="final-cta" aria-labelledby="final-cta-heading">
+    <div class="final-cta-inner">
+      <div class="tag section-tag reveal" style="background:rgba(83,58,253,0.2); border-color:rgba(83,58,253,0.4); color:var(--purple-light); margin-bottom:24px;">
+        Zero Risk. All Reward.
+      </div>
+      <h2 class="section-headline reveal reveal-delay-1" id="final-cta-heading">
+        Your First Funnel Could Be<br />Live in the Next 5 Minutes
+      </h2>
+      <p class="final-cta-sub reveal reveal-delay-2">
+        Start today, no strings attached. Cancel anytime with one click. After your 30-day free trial, it's only $5/month — literally the price of a coffee.
+      </p>
+      <div class="reveal reveal-delay-3">
+        <a href="https://buy.stripe.com/dRm8wH2RkbQg1WE5ry73G0a" target="_blank" rel="noopener" class="btn btn-primary btn-primary-lg cta-pulse" aria-label="Start your 30-day free trial now">
+          👉 I WANT MY 30-DAY FREE TRIAL NOW
+        </a>
+        <p class="final-cta-note">Start today, no strings attached. Cancel anytime. After that, only $5/month.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer role="contentinfo">
+    <p>© 2025 ConvertEasy. All rights reserved. · <a href="/privacy" style="color:rgba(255,255,255,0.35);">Privacy Policy</a> · <a href="/terms" style="color:rgba(255,255,255,0.35);">Terms of Service</a></p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════════ -->
+  <script>
+    // ── Navbar scroll effect ──
+    const navbar = document.querySelector('.navbar');
+    const onScroll = () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ── Scroll-reveal (IntersectionObserver) ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Stagger hero reveals immediately ──
+    const heroEls = document.querySelectorAll('.hero .reveal');
+    heroEls.forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 100 + i * 120);
+    });
+
+    // ── Mockup parallax tilt on mouse move ──
+    const mockup = document.querySelector('.product-screenshot-wrap');
+    if (mockup && window.matchMedia('(min-width: 768px)').matches) {
+      const hero = document.querySelector('.hero');
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / rect.width;
+        const dy = (e.clientY - cy) / rect.height;
+        mockup.style.transform = `perspective(1200px) rotateX(${4 - dy * 6}deg) rotateY(${dx * 4}deg)`;
+      });
+      hero.addEventListener('mouseleave', () => {
+        mockup.style.transform = 'perspective(1200px) rotateX(4deg) rotateY(0deg)';
+      });
+    }
+
+    // ── Smooth CTA highlight on click ──
+    document.querySelectorAll('.btn-primary').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        this.style.transform = 'scale(0.96)';
+        setTimeout(() => { this.style.transform = ''; }, 150);
+      });
+    });
+
+    // ── Number counter animation for mockup stats ──
+    const animateCounter = (el, target, duration = 1500) => {
+      const start = 0;
+      const startTime = performance.now();
+      const step = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (target - start) * eased);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statValues = entry.target.querySelectorAll('.stat-value');
+          const targets = [12847, 6203, 1094];
+          statValues.forEach((el, i) => animateCounter(el, targets[i]));
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Counter animation not needed (real screenshot replaces mockup)
+  </script>
+</body>
 </html>
