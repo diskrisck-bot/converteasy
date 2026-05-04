@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:getdesign.md)",
+      "Bash(npx getdesign@latest add stripe)",
+      "Bash(python3 \"C:/Users/marlo/.claude/skills/ui-ux-pro-max/scripts/search.py\" \"saas conversion funnel landing page cold audience beginner\" --design-system -p \"ConvertEasy\" -f markdown)"
+    ]
+  }
+}
