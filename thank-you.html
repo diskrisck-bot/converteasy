@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You — ConvertEasy</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1502506304840179');
+  fbq('track', 'PageView');
+  fbq('track', 'Purchase', { currency: 'USD', value: 5.00 });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1502506304840179&ev=Purchase&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple:      #533afd;
+      --purple-pale: #f0effe;
+      --navy:        #061b31;
+      --brand-dark:  #1c1e54;
+      --slate:       #64748d;
+      --label:       #273951;
+      --white:       #ffffff;
+      --border:      #e5edf5;
+      --green:       #15be53;
+      --green-text:  #108c3d;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--slate);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 24px; height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.95);
+    }
+    .nav-logo img { height: 36px; width: auto; display: block; }
+
+    /* ── Main ── */
+    main {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 48px 24px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(83,58,253,0.07) 0%, transparent 70%);
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 56px 48px;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      box-shadow: rgba(50,50,93,0.25) 0px 30px 60px -20px, rgba(0,0,0,0.10) 0px 18px 36px -18px;
+      animation: cardIn 0.6s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Check icon ── */
+    .check-wrap {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(21,190,83,0.1);
+      border: 2px solid rgba(21,190,83,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .check-icon {
+      width: 36px; height: 36px;
+      stroke: var(--green-text); stroke-width: 2.5;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .check-path {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: drawCheck 0.4s ease-out 0.6s forwards;
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ── Typography ── */
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(21,190,83,0.1); color: var(--green-text);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+      text-transform: uppercase; padding: 4px 10px;
+      border-radius: 4px; border: 1px solid rgba(21,190,83,0.25);
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--purple), #7b61ff);
+      border-radius: 2px;
+      margin: 0 auto 24px;
+    }
+    .message {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--slate);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+    .message strong { color: var(--navy); font-weight: 600; }
+
+    /* ── Email highlight box ── */
+    .email-box {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: var(--purple-pale);
+      border: 1px solid rgba(83,58,253,0.18);
+      border-radius: 10px;
+      padding: 18px 20px;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+    .email-icon {
+      font-size: 24px; flex-shrink: 0; margin-top: 1px;
+    }
+    .email-box-text {
+      font-size: 14px; color: var(--label); line-height: 1.6;
+    }
+    .email-box-text strong { color: var(--purple); font-weight: 600; }
+
+    /* ── Steps ── */
+    .steps {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 36px; text-align: left;
+    }
+    .step {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .step-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--purple); color: var(--white);
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .step-text {
+      font-size: 14px; color: var(--label); line-height: 1.6;
+    }
+    .step-text strong { color: var(--navy); }
+
+    /* ── Footer note ── */
+    .footer-note {
+      font-size: 13px; color: var(--slate); opacity: 0.7;
+      line-height: 1.5;
+    }
+    .footer-note a { color: var(--purple); text-decoration: none; }
+    .footer-note a:hover { text-decoration: underline; }
+
+    /* ── Page footer ── */
+    footer {
+      text-align: center; padding: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: rgba(6,27,49,0.35);
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">
+      <img src="assets/logo.png" alt="ConvertEasy" />
+    </div>
+  </nav>
+
+  <main>
+    <div class="card" role="main">
+
+      <div class="check-wrap" aria-hidden="true">
+        <svg class="check-icon" viewBox="0 0 36 36">
+          <polyline class="check-path" points="6,18 14,26 30,10" />
+        </svg>
+      </div>
+
+      <div class="tag">✔ &nbsp;Purchase Confirmed</div>
+
+      <h1>You're In!<br />Welcome to ConvertEasy.</h1>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <p class="message">
+        Your purchase is being processed.<br />
+        <strong>In the next few minutes, you'll receive your access link directly in your email inbox.</strong>
+      </p>
+
+      <div class="email-box" role="note" aria-label="Email delivery notice">
+        <div class="email-icon" aria-hidden="true">📧</div>
+        <div class="email-box-text">
+          <strong>Check your inbox (and your spam folder).</strong><br />
+          The email comes from ConvertEasy and contains your login link and first steps to get your funnel live.
+        </div>
+      </div>
+
+      <div class="steps" aria-label="Next steps">
+        <div class="step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-text"><strong>Open the email from ConvertEasy</strong> — it will be in your inbox within minutes.</div>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-text"><strong>Click your access link</strong> and set up your password in seconds.</div>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-text"><strong>Choose a ready-made template</strong> and get your first funnel live in 5 minutes.</div>
+        </div>
+      </div>
+
+      <p class="footer-note">
+        Didn't receive the email after 10 minutes?<br />
+        Contact us at <a href="mailto:support@converteasy.io">support@converteasy.io</a> — we'll sort it out immediately.
+      </p>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 ConvertEasy. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
